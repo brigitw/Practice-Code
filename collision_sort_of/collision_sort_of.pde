@@ -8,7 +8,6 @@ void setup() {
   vel= PVector. random2D();
   acc= new PVector (0, 0);
   mouse= new PVector();
-
 }
 
 void draw() {
@@ -19,10 +18,22 @@ void draw() {
   ellipse(loc.x, loc.y, sz, sz);
 
 
-  if (dist(mouseX, mouseY, loc.x, loc.y)>sz/2) {
+  if (loc.dist(mouse)<sz/2) {
     fill(100);
+    print("TOUCH");
+    if (mouse.x> loc.x) {
+      vel.x=-abs(vel.x);
+    } else { 
+      vel.x=abs(vel.x);
+    }
+    if (mouse.y>=loc.y) {
+      vel.y=-abs(vel.y);
+    } else { 
+      vel.y=abs(vel.y);
+    }
   } else {
     fill(255);
+    print("nooo");
   }
   if (loc.x + sz/2 > width || loc.x - sz/2 < 0) {
     vel.x *= -1;
@@ -30,15 +41,5 @@ void draw() {
   if (loc.y + sz/2 > height || loc.y - sz/2 < 0) {
     vel.y *= -1;
   }
-  if (mouse.x> loc.y) {
-    vel.x=-abs(vel.x);
-  } else { 
-    vel.x=abs(vel.x);
-  }
-  if (mouse.y>=loc.y) {
-    vel.y=-abs(vel.y);
-  } else { 
-    vel.y=abs(vel.y);
-    }
-  }
+}
 
