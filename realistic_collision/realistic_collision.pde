@@ -1,18 +1,21 @@
-int count=1000;
+int count=50;
 PVector [] loc= new PVector[count];
 PVector [] vel= new PVector [count];
 PVector [] acc = new PVector [count];
 float [] sz = new float [count];
-
+float [] mass=new float[count];
+int minDiam=10;
+int maxDiam=170;
 
 void setup() {
   
   size(displayWidth, displayHeight);
   for (int i = 0; i < count; i++) {
-    sz[i] = random(5, 10);
+    sz[i] = random(10, 170);
     loc [i] = new PVector(random(sz[i], width-sz[i]), random(sz[i], height-sz[i]));
     vel[i]= PVector.random2D();
     acc[i] = new PVector(0, 0);
+    mass[i]= map(sz[i], minDiam, maxDiam, .1, 1.5);
   }
 }
 void draw() {
@@ -39,11 +42,13 @@ background(0);
             vel[i].y = abs(vel[i].y);
             vel[j].y = -abs(vel[j].y);
           }
+          vel[i].normalize();
+          vel[i].div(mass[i]);
         }
       }
     }
 noStroke();
-    fill(random(25), random(255), random(251));
+    fill(random(150));
     ellipse(loc[i].x, loc[i].y, sz[i], sz[i]);
 
     
@@ -55,7 +60,4 @@ noStroke();
     }
   }
 }
-
-
-
 
