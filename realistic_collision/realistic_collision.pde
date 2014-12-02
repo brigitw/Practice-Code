@@ -5,21 +5,21 @@ PVector [] acc = new PVector [count];
 float [] sz = new float [count];
 float [] mass=new float[count];
 int minDiam=10;
-int maxDiam=170;
+int maxDiam=50;
 
 void setup() {
-  
+  background(0);
   size(displayWidth, displayHeight);
   for (int i = 0; i < count; i++) {
-    sz[i] = random(10, 170);
+    sz[i] = random(10, 150);
     loc [i] = new PVector(random(sz[i], width-sz[i]), random(sz[i], height-sz[i]));
     vel[i]= PVector.random2D();
-    acc[i] = new PVector(0, 0);
+    acc[i] = new PVector(-.001,.001);
     mass[i]= map(sz[i], minDiam, maxDiam, .1, 1.5);
   }
 }
 void draw() {
-background(0);
+
   for (int i = 0; i < count; i++) {    
     vel[i].add(acc[i]);
     loc[i].add(vel[i]);
